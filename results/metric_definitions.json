@@ -1,0 +1,33 @@
+{
+  "definitions": {
+    "recall_open": "Validly detected overrun jobs before planned closure / all jobs with true final cost >110% of budget.",
+    "precision": "Valid catches / all emitted alerts, including repeated dismissed alerts; oracle-manager simulation convention.",
+    "share_after_close": "Validly detected overrun jobs caught at/after closure / all validly detected overrun jobs, not all alerts.",
+    "addressable_share": "Injected driver cost on true-overrun jobs scheduled at/after the first valid alert / all injected driver cost on those jobs; zero response delay, not realized savings.",
+    "addressable_share_2day": "Same driver-cost metric, requiring cost to occur at least two working days after the valid alert.",
+    "alerts_per_week": "Emitted alerts for the 1,200-job test cohort / 50.4 working weeks; normalized annual-cohort load.",
+    "model_score": "Classifier score for observed final overrun >10% AND current learned-curve excess >3% of budget; not calibrated final-overrun probability.",
+    "false_alarm_anatomy": "Distinct non-overrun jobs receiving at least one emitted ML alert, not false-alert events; categories may overlap."
+  },
+  "methodology": {
+    "data": "One fixed-seed synthetic plant; no real-ERP, customer or user validation.",
+    "seed": 7,
+    "training_cutoff_absolute_working_day": 252,
+    "data_quality_rates": "Scenario percentages are nominal probabilities. Mis-coding attempts can select the same active job; realized wrong-job shares are therefore slightly lower.",
+    "training": "Only closed previous-year jobs and postings available before test start. Cohorts are degraded separately. Learned curves fit inside the training fold before calibration, then refit on all eligible history.",
+    "calibration": "Job-level 25% validation split. All daily arms use daily snapshots and two consecutive daily threshold exceedances. Rules and ML choose thresholds on validation only: maximize remaining driver cost subject to precision >=50%. If infeasible, the highest-precision candidate is exported as diagnostic only.",
+    "realert": "All arms use a five-working-day cooldown after a dismissed alert. First valid catch stops further alerts.",
+    "manager": "Oracle simulation: manager knows whether final true cost exceeds budget by >10% and whether injected cause is active. This does not represent observed human accuracy or speed.",
+    "month_end": "Fixed 10% variance vs phased plan; only postings visible before month-end; report five working days later. No accruals or arrivals during close.",
+    "deployment": "A prototype, not approved for production. Validation and held-out precision checks are reported separately; simulation pass is not field validation.",
+    "limitations": "One stationary synthetic data-generating process and seed; no uncertainty interval, measured intervention effect, calibrated probability, or evidence of willingness to pay. Cost still ahead may be committed or unavoidable. Zero-delay and two-day-delay opportunities are both shown.",
+    "response_delay_working_days": [
+      0,
+      2
+    ],
+    "minimum_precision": 0.5,
+    "review_minutes_per_alert": 30,
+    "review_cost_eur_per_hour": 60,
+    "model_target": "Classifier score for observed final overrun >10% AND current learned-curve excess >3% of budget; not calibrated final-overrun probability."
+  }
+}

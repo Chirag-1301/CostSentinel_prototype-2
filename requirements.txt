@@ -1,0 +1,7 @@
+# Verified with Python 3.13.5. No network services are needed at runtime.
+numpy==2.1.3
+pandas==2.2.3
+scipy==1.15.3
+scikit-learn==1.6.1
+joblib==1.4.2
+threadpoolctl==3.5.0
