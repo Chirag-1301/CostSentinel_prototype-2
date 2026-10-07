@@ -168,7 +168,8 @@ def main():
     payload=json.dumps(clean(data),ensure_ascii=False,allow_nan=False,separators=(',',':')).replace('</','<\\/')
     final=prefix+'<script>\nconst DATA = '+payload+';\n'+SCRIPT.lstrip()+'\n</script>\n</body>\n</html>\n'
     HTML.write_text(final,encoding='utf-8')
-    print(f'Built {HTML.name}: {len(data["jobs"])} replay jobs; current data embedded; no external runtime dependencies.')
+    (ROOT / 'index.html').write_text(final, encoding='utf-8')
+    print(f'Built {HTML.name} and index.html: {len(data["jobs"])} replay jobs; current data embedded; no external runtime dependencies.')
 
 if __name__ == '__main__':
     main()
